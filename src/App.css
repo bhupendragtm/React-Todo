@@ -1,38 +1,77 @@
-.App {
+/* .App {
   text-align: center;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+} */
+
+.logo {
+  height: 40px;
+  width: 5%;
+  display: flex;
+  padding: 25px,25px,25px,25px;
+  /* background-color: purple; */
+}
+
+.logo1 {
+  height: 40px;
+  width: 40px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .logo {
     animation: App-logo-spin infinite 20s linear;
   }
+  
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
+  background-color: #09f4e1;
+  min-height: 40px;
+  min-width: 40px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.addItems {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
+.eachItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block-start: 20px;
+  white-space: 50px;
+  font-size: calc(10px + 2vmin);
+}
+
+.removeItems{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  animation: spin-animation 100min infinite;
+  display: inline-block;
+}
+
+ @keyframes spin-animation {
+  0% {
     transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: rotate(359deg);
   }
 }
