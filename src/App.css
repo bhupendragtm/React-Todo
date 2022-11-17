@@ -63,7 +63,7 @@
 }
 
 .logo {
-  animation: spin-animation 100min infinite;
+  animation: spin-animation 5s infinite;
   display: inline-block;
 }
 
