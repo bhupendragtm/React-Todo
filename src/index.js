@@ -3,6 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
+// let width = screen.width;
+// let height = screen.height;
+// console.log(width);
+// console.log(height);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

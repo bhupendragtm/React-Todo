@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../logo.svg";
 import "../App.css";
+import axios from "axios";
+
 // import * as FaBeer from "react-icons/fa";
 const Todo = () => {
   const [inputData, setInputData] = useState("");
@@ -12,6 +14,19 @@ const Todo = () => {
       setInputData("");
     }
   };
+
+  console.log(items);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/todos")
+      .then((response) => {
+        setItems(response.data.title);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const deleteItem = (id) => {
     console.log(id);
@@ -31,7 +46,7 @@ const Todo = () => {
         <div class="logo-spin">
           <figure class="header">
             <img class="logo" src={logo} alt="logo" />
-            <figcaption>Add Your List Here !</figcaption>
+            <figcaption>Add Your List Here </figcaption>
           </figure>
 
           <div class="addItems">
