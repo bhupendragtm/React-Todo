@@ -5,23 +5,33 @@ import axios from "axios";
 
 // import * as FaBeer from "react-icons/fa";
 const Todo = () => {
-  const [inputData, setInputData] = useState("");
+  const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
-  const addItem = () => {
-    if (!inputData) {
-    } else {
-      setItems([...items, inputData]);
-      setInputData("");
-    }
-  };
 
-  console.log(items);
+  const addItem = (e) => {
+    const cat = title;
+    console.log("abc" + title);
+    e.preventDefault(title);
+    console.log("abc1" + cat);
+
+    // if (!title) return "No Data";
+
+    axios
+      .post("http://localhost:8001/todos", {
+        title,
+      })
+      .then((response) => {
+        setItems(response.data);
+        console.log(`HTTP status code: ${response.data}`);
+      });
+  };
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/todos")
+      .get("http://localhost:8001/todos")
       .then((response) => {
-        setItems(response.data.title);
+        console.log(response);
+        setItems(response?.data);
       })
       .catch((error) => {
         console.log(error);
@@ -29,11 +39,24 @@ const Todo = () => {
   }, []);
 
   const deleteItem = (id) => {
-    console.log(id);
-    const updateditems = items.filter((elem, index) => {
-      return index !== id;
-    });
-    setItems(updateditems);
+    axios
+      .delete(`http://localhost:8001/todos/${id}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+        const updateditems = items.filter((elem, index) => {
+          return index !== id;
+        });
+        items(updateditems);
+      });
+
+    // console.log(id);
+    // const updateditems = items.filter((elem, index) => {
+    //   return index !== id;
+    // });
+    // setItems(updateditems);
   };
 
   const removeAll = () => {
@@ -52,9 +75,10 @@ const Todo = () => {
           <div class="addItems">
             <input
               type="text"
-              placeholder="Add Items ..."
-              vlaue={inputData}
-              onChange={(e) => setInputData(e.target.value)}
+              default="Add Items ..."
+              vlaue={title}
+              onChange={(e) => setTitle(e.target.value)}
+              // onChange={(e) => setTitle(e.target.value)}
             />
             <button title="Add Item" onClick={addItem}>
               <svg
@@ -70,7 +94,7 @@ const Todo = () => {
           </div>
 
           <div class="showItems">
-            {items.map((elem, index) => {
+            {/* {items.map((elem, index) => {
               return (
                 <div class="eachItem" key={index}>
                   <h3>{elem}</h3>
@@ -80,7 +104,16 @@ const Todo = () => {
                   </button>
                 </div>
               );
-            })}
+            })} */}
+            {items.map((item) => (
+              <div class="eachItem">
+                <h3>{item.title}</h3>
+                <button title="Delete Item" onClick={() => deleteItem(item.id)}>
+                  {" "}
+                  Delete{" "}
+                </button>
+              </div>
+            ))}
             <div class="eachItem">
               <h3>Apple</h3>
               <button title="Delete Item"> Delete </button>
