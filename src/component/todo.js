@@ -9,7 +9,21 @@ import axios from "axios";
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
-  const [change, setChange] = useState(false);
+
+  const getItem = () => {
+    axios
+      .get("http://localhost:8001/todos")
+      .then((response) => {
+        console.log(response.data);
+        response.data.forEach((i) => {
+          console.log(i.id, i.title, i.description, i.users);
+        });
+        setItems(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const addItem = (e) => {
     e.preventDefault(title);
@@ -20,11 +34,11 @@ const Todo = () => {
         "http://localhost:8001/todos",
         {
           title,
-        },
-        setChange(true),
-        window.location.reload(false)
+        }
+        // window.location.reload(true)
       )
       .then((response) => {
+        console.log(response);
         toast(`You have Toasted Title: '${title}'`);
         // window.location.reload(false);
         // window.location.replace;
@@ -35,16 +49,8 @@ const Todo = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8001/todos")
-      .then((response) => {
-        console.log(response);
-        setItems(response?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [change]);
+    getItem();
+  }, []);
 
   const deleteItem = (id) => {
     axios
@@ -55,8 +61,7 @@ const Todo = () => {
         toast(`You Deleted id No: '${id}'`, {
           position: toast.POSITION.TOP_LEFT,
         });
-        setChange(true);
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
