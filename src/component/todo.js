@@ -46,7 +46,7 @@ const Todo = () => {
       .then((response) => {
         console.log(response);
         // window.location.reload(false);
-        toast.warning(`You have Toasted Title: '${id}'`, {
+        toast(`You Deleted id No: '${id}'`, {
           position: toast.POSITION.TOP_LEFT,
         });
       })
