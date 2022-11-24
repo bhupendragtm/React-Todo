@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import logo from "../logo.svg";
 import "../App.css";
 import axios from "axios";
 
 // import * as FaBeer from "react-icons/fa";
+
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
 
   const addItem = (e) => {
-    const cat = title;
-    console.log("abc" + title);
     e.preventDefault(title);
-    console.log("abc1" + cat);
-
     // if (!title) return "No Data";
 
     axios
@@ -21,8 +19,9 @@ const Todo = () => {
         title,
       })
       .then((response) => {
-        setItems(response.data);
-        window.location.reload(false);
+        toast(`You have Toasted Title: '${title}'`);
+        // window.location.reload(false);
+        // window.location.replace;
       })
       .catch((error) => {
         console.log(error);
@@ -46,7 +45,10 @@ const Todo = () => {
       .delete(`http://localhost:8001/todos/${id}`)
       .then((response) => {
         console.log(response);
-        window.location.reload(false);
+        // window.location.reload(false);
+        toast.warning(`You have Toasted Title: '${id}'`, {
+          position: toast.POSITION.TOP_LEFT,
+        });
       })
       .catch((error) => {
         console.log(error);
