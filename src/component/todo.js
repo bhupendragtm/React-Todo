@@ -9,6 +9,7 @@ import axios from "axios";
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
+  const [change, setChange] = useState(false);
 
   const addItem = (e) => {
     e.preventDefault(title);
@@ -38,7 +39,7 @@ const Todo = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [change]);
 
   const deleteItem = (id) => {
     axios
@@ -49,6 +50,7 @@ const Todo = () => {
         toast(`You Deleted id No: '${id}'`, {
           position: toast.POSITION.TOP_LEFT,
         });
+        setChange(true);
       })
       .catch((error) => {
         console.log(error);
