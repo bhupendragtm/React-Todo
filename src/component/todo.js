@@ -21,8 +21,11 @@ const Todo = () => {
         title,
       })
       .then((response) => {
-        setItems(response.data);
-        console.log(`HTTP status code: ${response.data}`);
+        // setItems(response.data);
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
