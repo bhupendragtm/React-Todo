@@ -21,7 +21,7 @@ const Todo = () => {
         title,
       })
       .then((response) => {
-        // setItems(response.data);
+        setItems(response.data);
         window.location.reload(false);
       })
       .catch((error) => {
@@ -46,6 +46,7 @@ const Todo = () => {
       .delete(`http://localhost:8001/todos/${id}`)
       .then((response) => {
         console.log(response);
+        window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
