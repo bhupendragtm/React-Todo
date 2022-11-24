@@ -16,9 +16,14 @@ const Todo = () => {
     // if (!title) return "No Data";
 
     axios
-      .post("http://localhost:8001/todos", {
-        title,
-      })
+      .post(
+        "http://localhost:8001/todos",
+        {
+          title,
+        },
+        setChange(true),
+        window.location.reload(false)
+      )
       .then((response) => {
         toast(`You have Toasted Title: '${title}'`);
         // window.location.reload(false);
@@ -51,6 +56,7 @@ const Todo = () => {
           position: toast.POSITION.TOP_LEFT,
         });
         setChange(true);
+        window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
