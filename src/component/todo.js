@@ -39,7 +39,7 @@ const Todo = () => {
       )
       .then((response) => {
         console.log(response);
-        toast.success(`You Hav Successfully Added Title: '${title}'`, {});
+        toast.success(`You Hav Successfully Added Title: '${title}'`);
         getItem();
         // window.location.reload(false);
         // window.location.replace;
@@ -59,9 +59,7 @@ const Todo = () => {
       .then((response) => {
         console.log(response);
         getItem();
-        toast.deleteItem(`You Deleted id No: '${id}'`, {
-          position: toast,
-        });
+        toast(`You Deleted id No: '${id}'`, {});
         const updateditems = items.splice((index) => {
           console.log(
             "Your Index is" + index + "Your id is" + items.id + items.title
