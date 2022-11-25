@@ -1,41 +1,56 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import logo from "../logo.svg";
 import "../App.css";
 import axios from "axios";
 
 // import * as FaBeer from "react-icons/fa";
+
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
 
-  const addItem = (e) => {
-    const cat = title;
-    console.log("abc" + title);
-    e.preventDefault(title);
-    console.log("abc1" + cat);
-
-    // if (!title) return "No Data";
-
-    axios
-      .post("http://localhost:8001/todos", {
-        title,
-      })
-      .then((response) => {
-        setItems(response.data);
-        console.log(`HTTP status code: ${response.data}`);
-      });
-  };
-
-  useEffect(() => {
+  const getItem = () => {
     axios
       .get("http://localhost:8001/todos")
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        response.data.forEach((i) => {
+          console.log(i.id, i.title, i.description, i.users);
+        });
         setItems(response?.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const addItem = (e) => {
+    e.preventDefault(title);
+    // if (!title) return "No Data";
+
+    axios
+      .post(
+        "http://localhost:8001/todos",
+        {
+          title,
+        }
+        // window.location.reload(true)
+      )
+      .then((response) => {
+        console.log(response);
+        toast.success(`You Hav Successfully Added Title: '${title}'`, {});
+        getItem();
+        // window.location.reload(false);
+        // window.location.replace;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getItem();
   }, []);
 
   const deleteItem = (id) => {
@@ -43,13 +58,20 @@ const Todo = () => {
       .delete(`http://localhost:8001/todos/${id}`)
       .then((response) => {
         console.log(response);
+        getItem();
+        toast.deleteItem(`You Deleted id No: '${id}'`, {
+          position: toast,
+        });
+        const updateditems = items.splice((index) => {
+          console.log(
+            "Your Index is" + index + "Your id is" + items.id + items.title
+          );
+        });
+        console.log(updateditems);
+        setItems(updateditems);
       })
       .catch((error) => {
         console.log(error);
-        const updateditems = items.filter((elem, index) => {
-          return index !== id;
-        });
-        items(updateditems);
       });
 
     // console.log(id);
