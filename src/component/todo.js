@@ -9,6 +9,7 @@ import axios from "axios";
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
+  console.log('here'+items);
 
   const getItem = () => {
     axios
